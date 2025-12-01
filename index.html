@@ -1,112 +1,1346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>On The Rock Solutions — Simple Receipt & Expense Automation</title>
-  <meta name="description" content="Set up a simple, reliable workflow that moves your receipts into a clean Google Sheet or ERP-style list—automatically. Serving Columbia & Lancaster County, PA.">
-  <meta property="og:title" content="On The Rock Solutions — Simple Receipt & Expense Automation">
-  <meta property="og:description" content="Helping Columbia & Lancaster County small businesses automate their receipt and expense tracking into Google Sheets or ERP lists.">
-  <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On The Rock Solutions – AP Automation & ERP Integrations</title>
+  <meta name="description" content="On The Rock Solutions helps small and mid-sized businesses automate AP, receipts, and ERP workflows with custom integrations for QuickBooks, Quickbase, Acumatica, and more." />
+
   <style>
-    :root{
-      --bg:#0f172a;--card:#111827;--muted:#94a3b8;--text:#e5e7eb;--brand:#22c55e;--brand-600:#16a34a;--ring:#34d399;--border:#1f2937;
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #0b1120;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.7);
+      --shadow-card: 0 18px 35px rgba(15, 23, 42, 0.8);
+      --max-width: 1080px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans",sans-serif;background:linear-gradient(180deg,#0b1229 0%, #0f172a 35%, #0b1229 100%);color:var(--text)}
-    a{color:var(--brand);text-decoration:none}a:hover{color:var(--brand-600)}
-    .container{max-width:1080px;margin:0 auto;padding:0 20px}
-    header{position:sticky;top:0;background:rgba(15,23,42,.8);backdrop-filter:saturate(120%) blur(8px);border-bottom:1px solid var(--border);z-index:50}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:700}
-    .logo-badge{width:32px;height:32px;border-radius:8px;background:radial-gradient(circle at 30% 30%, #34d399, #16a34a 60%, #065f46);display:grid;place-items:center;box-shadow:0 0 0 2px rgba(52,211,153,.18)}
-    .logo-badge svg{width:20px;height:20px;fill:white}
-    .cta{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#072b1a;border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(34,197,94,.15)}.cta:hover{background:var(--brand-600)}
-    .hero{padding:72px 0 48px;display:grid;gap:24px;text-align:center}
-    .hero h1{font-size:clamp(28px,4vw,48px);line-height:1.05;margin:0}
-    .hero p{color:var(--muted);font-size:clamp(16px,2.2vw,19px);margin:0 auto;max-width:760px}
-    .hero-strip{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:18px}
-    .pill{border:1px solid var(--border);background:#0b1229;border-radius:999px;padding:8px 12px;color:var(--muted);font-size:14px}
-    .grid{display:grid;gap:16px}
-    .features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:36px 0}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid var(--border);border-radius:16px;padding:20px}
-    .card h3{margin:0 0 8px;font-size:18px}
-    .card p{margin:0;color:var(--muted);font-size:15px}
-    .icon{width:36px;height:36px;border-radius:10px;background:#0b1229;border:1px solid var(--border);display:grid;place-items:center;margin-bottom:10px}
-    .section{padding:40px 0}
-    .pricing{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-    .price-card{padding:24px;border-radius:18px;border:1px solid var(--border);background:linear-gradient(180deg,rgba(34,197,94,.06),rgba(34,197,94,.02));}
-    .price{font-size:34px;font-weight:800;margin:6px 0}
-    .muted{color:var(--muted)}ul{padding-left:20px;margin:10px 0}li{margin:6px 0}
-    .cta-bar{margin:40px 0;background:linear-gradient(90deg,rgba(34,197,94,.15),rgba(20,83,45,.2));border:1px solid var(--ring);border-radius:18px;padding:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-    .faq details{background:#0b1229;border:1px solid var(--border);border-radius:12px;padding:14px;margin:8px 0}
-    footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--border);margin-top:40px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.chip{background:#0b1229;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}.email-link{word-break:break-all}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1d283a 0, #020617 45%, #020617 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.92),
+        rgba(15, 23, 42, 0.78),
+        transparent
+      );
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 25% 20%, #f9fafb 0, #38bdf8 32%, #0f172a 75%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 18px 30px rgba(15, 23, 42, 0.85);
+    }
+
+    .logo-mark span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #0f172a;
+    }
+
+    .logo-text-title {
+      font-weight: 650;
+      letter-spacing: 0.05em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      width: 0;
+      background: linear-gradient(to right, var(--accent), var(--accent-strong));
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
+        background 0.1s ease-out, border-color 0.1s ease-out;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 20% 0, #e0f2fe 0, #38bdf8 35%, #0ea5e9 75%);
+      color: #020617;
+      box-shadow: 0 15px 35px rgba(8, 47, 73, 0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 40px rgba(8, 47, 73, 0.9);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.75);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.85);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.75rem 1rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+      padding-top: 3.25rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.55rem 0.25rem 0.25rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.75);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-badge-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #bbf7d0 0, #22c55e 40%, #166534 75%);
+      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.25),
+        0 10px 20px rgba(21, 128, 61, 0.6);
+    }
+
+    .hero-badge-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 750;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #e0f2fe, #7dd3fc, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-subtitle strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.45rem;
+    }
+
+    .hero-footnote {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-footnote span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .panel {
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 1.35rem 1.45rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: var(--accent);
+      background: rgba(8, 47, 73, 0.7);
+    }
+
+    .panel-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .panel-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .panel-row-label {
+      color: var(--muted);
+    }
+
+    .panel-row-value {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .panel-row-value span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .panel-divider {
+      border-top: 1px dashed rgba(148, 163, 184, 0.4);
+      margin: 0.25rem 0 0.4rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.3rem;
+    }
+
+    .stack-pill {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    /* Section titles */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      font-weight: 650;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 26rem;
+    }
+
+    /* Services */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(to bottom right, #020617, #020617, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 1.15rem 1.1rem 1.2rem;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -60px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-body {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .card-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: grid;
+      gap: 0.25rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-list li::before {
+      content: "•";
+      margin-right: 0.4rem;
+      color: var(--accent);
+    }
+
+    .card-footer {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    .card-footer span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Two-column sections */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.6rem;
+    }
+
+    .list-check {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: grid;
+      gap: 0.4rem;
+      margin-top: 0.3rem;
+    }
+
+    .list-check li::before {
+      content: "✓";
+      margin-right: 0.4rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.45rem;
+    }
+
+    .pill-soft {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    /* Process */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .step {
+      background: #020617;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 0.9rem 0.8rem 0.95rem;
+      position: relative;
+    }
+
+    .step-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .step-title {
+      font-size: 0.84rem;
+      font-weight: 550;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-body {
+      color: var(--muted);
+    }
+
+    /* Case studies */
+    .case-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+
+    .case {
+      background: #020617;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 0.9rem 0.9rem 1rem;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.85);
+    }
+
+    .case-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .case-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .case-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .case-list {
+      list-style: none;
+      color: var(--muted);
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .case-list li::before {
+      content: "→";
+      margin-right: 0.35rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+
+    .pricing-card {
+      background: radial-gradient(circle at top, #0b1120 0, #020617 65%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 24px 50px rgba(8, 47, 73, 0.95);
+    }
+
+    .pricing-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .pricing-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .pricing-tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      color: var(--accent);
+      background: rgba(8, 47, 73, 0.9);
+    }
+
+    .pricing-price {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .pricing-price span {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 0.15rem;
+    }
+
+    .pricing-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .pricing-list {
+      list-style: none;
+      display: grid;
+      gap: 0.25rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .pricing-list li::before {
+      content: "•";
+      margin-right: 0.35rem;
+      color: var(--accent);
+    }
+
+    .pricing-cta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* About / contact */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.4rem;
+      font-size: 0.85rem;
+    }
+
+    .about-card {
+      background: #020617;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 1rem;
+    }
+
+    .about-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .about-list {
+      list-style: none;
+      display: grid;
+      gap: 0.3rem;
+      margin-top: 0.3rem;
+      color: var(--muted);
+    }
+
+    .about-list li::before {
+      content: "•";
+      margin-right: 0.35rem;
+      color: var(--accent);
+    }
+
+    .contact-card {
+      background: radial-gradient(circle at top, #0b1120 0, #020617 70%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(56, 189, 248, 0.75);
+      padding: 1rem;
+      box-shadow: 0 20px 40px rgba(8, 47, 73, 0.95);
+    }
+
+    .contact-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .contact-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .contact-row {
+      display: grid;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+    }
+
+    .contact-row a {
+      color: var(--accent);
+    }
+
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 1.75rem 1rem 2.2rem;
+      margin-top: 1rem;
+      background: rgba(2, 6, 23, 0.96);
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right {
+        order: -1;
+      }
+      .cards-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .case-grid,
+      .two-col,
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid,
+      .pricing-grid,
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section {
+        padding-inline: 1rem;
+      }
+      .hero {
+        padding-top: 2.25rem;
+      }
+      .nav {
+        padding-inline: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo"><div class="logo-badge"><svg viewBox="0 0 24 24"><path d="M12 2l7 5v10l-7 5-7-5V7l7-5zm0 3.2L7 8v8l5 3.2 5-3.2V8l-5-2.8z"/></svg></div><span>On The Rock Solutions</span></div>
-      <a class="cta" href="mailto:ontherocksolutions@gmail.com?subject=Receipt%20Automation%20Setup">Get a free walkthrough</a>
-    </div>
-  </header>
-  <main>
-    <section class="hero container">
-      <h1>Simple receipt & expense automation — built for small teams</h1>
-      <p>Stop chasing paper. We set up a reliable workflow that moves your receipts into a clean <strong>Google Sheet</strong> or an <strong>ERP-style list</strong> automatically, with categories and dates ready for review.</p>
-      <div class="hero-strip">
-        <span class="pill">Contractors & trades</span>
-        <span class="pill">Property owners</span>
-        <span class="pill">Local small businesses</span>
-        <span class="pill">Columbia & Lancaster County</span>
+  <div class="page">
+    <header>
+      <div class="nav">
+        <div class="logo">
+          <div class="logo-mark">
+            <span>OR</span>
+          </div>
+          <div>
+            <div class="logo-text-title">On The Rock Solutions</div>
+            <div class="logo-text-sub">AP Automation &amp; ERP Integrations</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#who-i-help">Who I Help</a>
+          <a href="#process">Process</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-cta">
+          <div class="pill">Solo engineer · 10+ yrs experience</div>
+          <a class="btn-primary" href="mailto:brian@ontherocksolutions.com?subject=Discovery%20Call%20-%20On%20The%20Rock%20Solutions">
+            Book a discovery call
+          </a>
+        </div>
       </div>
-    </section>
+    </header>
 
-    <section class="container section">
-      <div class="grid features">
-        <div class="card"><div class="icon">🧾</div><h3>Receipts → Spreadsheet</h3><p>Emailed or scanned receipts flow into a structured Google Sheet: vendor, total, date, notes — ready for month-end or tax time.</p></div>
-        <div class="card"><div class="icon">📊</div><h3>Clear, running totals</h3><p>See spend by category or project at a glance. Stay on top of job costs and budgets without manual data entry.</p></div>
-        <div class="card"><div class="icon">🔗</div><h3>Optional ERP sync</h3><p>Push cleaned rows to an ERP-style list (e.g., Quickbase) for reporting or approvals when you’re ready.</p></div>
-        <div class="card"><div class="icon">🔒</div><h3>Privacy & control</h3><p>Your data stays in your Google account or system. We use least-privilege access and simple, auditable automation.</p></div>
+    <main>
+      <!-- Hero -->
+      <section class="section hero" id="top">
+        <div>
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            <div class="hero-badge-text">Stop retyping invoices. Start automating your back office.</div>
+          </div>
+
+          <h1 class="hero-title">
+            AP automation &amp; ERP integrations for
+            <span>real-world small businesses.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            I help contractors, solar installers, property managers, and other growing teams
+            <strong>automate invoices, receipts, and ERP workflows</strong> so they can get out of spreadsheets and
+            back to running the business.
+          </p>
+
+          <div class="hero-cta-row">
+            <a class="btn-primary" href="mailto:brian@ontherocksolutions.com?subject=Discovery%20Call%20-%20AP%20Automation">
+              Schedule a 15-minute fit call
+            </a>
+            <a class="btn-ghost" href="#services">
+              View services
+            </a>
+          </div>
+
+          <div class="hero-footnote">
+            No offshore team. No generic “platform.” Just <span>custom automations</span> that match how your business
+            actually works.
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Sample automation snapshot</div>
+              <div class="panel-tag">From inbox → ERP</div>
+            </div>
+
+            <div class="panel-body">
+              <div class="panel-row">
+                <div class="panel-row-label">Pipeline</div>
+                <div class="panel-row-value">Receipt Inbox → Google Sheets → ERP</div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-label">What it does</div>
+                <div class="panel-row-value">
+                  Auto-parses email receipts and vendor invoices into structured line items.
+                </div>
+              </div>
+
+              <div class="panel-divider"></div>
+
+              <div class="panel-row">
+                <div class="panel-row-label">Systems supported</div>
+                <div class="panel-row-value">
+                  <span>QuickBooks, Quickbase, Acumatica, ERPNext</span>
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-label">Common use cases</div>
+                <div class="panel-row-value">
+                  AP automation, job costing, vendor spend tracking.
+                </div>
+              </div>
+
+              <div class="panel-divider"></div>
+
+              <div class="panel-row">
+                <div class="panel-row-label">Built with</div>
+                <div class="panel-row-value">
+                  <div class="pill-row">
+                    <div class="stack-pill">.NET / C#</div>
+                    <div class="stack-pill">Python</div>
+                    <div class="stack-pill">Quickbase API</div>
+                    <div class="stack-pill">REST / Webhooks</div>
+                    <div class="stack-pill">Google Workspace</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-row">
+                <div class="panel-row-label">Ownership</div>
+                <div class="panel-row-value">
+                  You keep the source. No vendor lock-in.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section" id="services">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Services</div>
+            <h2 class="section-title">What I can ship for you</h2>
+          </div>
+          <p class="section-subtitle">
+            Whether you’re buried in invoices, fighting double data entry, or trying to connect a new ERP, we’ll scope
+            a concrete integration that pays for itself in saved time and fewer errors.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-label">01 · AP automation pipeline</div>
+            <div class="card-title">From messy inbox to clean, structured data</div>
+            <p class="card-body">
+              A done-for-you workflow that turns receipts and invoices from email or scans into structured data ready
+              to post into your accounting or ERP system.
+            </p>
+            <ul class="card-list">
+              <li>Email inbox or upload folder for invoices and receipts</li>
+              <li>Parsing &amp; validation for vendor, date, totals, tax, and key fields</li>
+              <li>Exports or API pushes into QuickBooks, Quickbase, or your ERP</li>
+              <li>Basic duplicate detection and simple approval routing</li>
+            </ul>
+            <div class="card-footer">
+              Typical scope: initial build + light monthly support. Ideal for teams processing
+              <span>recurring vendor bills or job expenses.</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">02 · ERP &amp; Quickbase integrations</div>
+            <div class="card-title">Keep systems in sync without manual exports</div>
+            <p class="card-body">
+              Custom integrations for Acumatica, Quickbase, ERPNext and related tools, designed around how your data and
+              teams already work.
+            </p>
+            <ul class="card-list">
+              <li>Sync customers, vendors, jobs, or projects between systems</li>
+              <li>Push approved invoices from Quickbase into your ERP</li>
+              <li>Bring meter/usage or field data into a central system of record</li>
+              <li>Handle awkward edge cases with custom business rules</li>
+            </ul>
+            <div class="card-footer">
+              Good fit if you’re tired of CSV imports/exports and want
+              <span>one reliable source of truth.</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">03 · Custom automation &amp; middleware</div>
+            <div class="card-title">Glue code for the real-world stack you already use</div>
+            <p class="card-body">
+              Not every problem needs a new SaaS subscription. Sometimes you just need solid, boring automation that’s
+              built once and maintained well.
+            </p>
+            <ul class="card-list">
+              <li>Google Workspace &amp; email automation</li>
+              <li>File watchers, ETL jobs, and scheduled scripts</li>
+              <li>Data quality checks before it hits finance or ops</li>
+              <li>Simple dashboards or reports on top of existing data</li>
+            </ul>
+            <div class="card-footer">
+              If you’re saying “there has to be a better way than this spreadsheet,”
+              <span>this is for you.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Who I help -->
+      <section class="section" id="who-i-help">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Who I work with</div>
+            <h2 class="section-title">A good fit if this sounds like you</h2>
+          </div>
+          <p class="section-subtitle">
+            I typically support owner-operators, ops leaders, and finance leads at growing teams that have outgrown
+            purely manual processes but don’t want to hire a full-time integrations team.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3 style="font-size:0.92rem; font-weight:600; margin-bottom:0.2rem;">Industries I understand well</h3>
+            <ul class="list-check">
+              <li>Contractors &amp; trades (general, electrical, plumbing, HVAC)</li>
+              <li>Solar &amp; renewable energy installers</li>
+              <li>Property owners &amp; small real estate operations</li>
+              <li>Small manufacturers &amp; distributors</li>
+              <li>Service businesses juggling multiple tools and spreadsheets</li>
+            </ul>
+
+            <h3 style="font-size:0.92rem; font-weight:600; margin:0.9rem 0 0.2rem;">
+              Signs you’re ready for automation
+            </h3>
+            <ul class="list-check">
+              <li>Someone on your team spends hours each week retyping data between systems.</li>
+              <li>You rely on one “spreadsheet wizard” to keep everything glued together.</li>
+              <li>Invoices slip through the cracks because email is the system of record.</li>
+              <li>You’re adding headcount just to keep up with data entry.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="font-size:0.92rem; font-weight:600; margin-bottom:0.3rem;">Systems &amp; tools I’ve worked with</h3>
+            <div class="pill-grid">
+              <div class="pill-soft">Acumatica</div>
+              <div class="pill-soft">Quickbase</div>
+              <div class="pill-soft">ERPNext</div>
+              <div class="pill-soft">QuickBooks</div>
+              <div class="pill-soft">SQL Server &amp; Postgres</div>
+              <div class="pill-soft">REST APIs &amp; webhooks</div>
+              <div class="pill-soft">.NET / C#</div>
+              <div class="pill-soft">Python</div>
+              <div class="pill-soft">Power BI</div>
+              <div class="pill-soft">Google Workspace</div>
+            </div>
+
+            <p style="font-size:0.83rem; color:var(--muted); margin-top:0.75rem;">
+              If your stack isn’t listed here but you have an API, exports, or a database,
+              there’s usually a way to wire things together reliably.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Process -->
+      <section class="section" id="process">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Process</div>
+            <h2 class="section-title">How we go from “idea” to “live and boring”</h2>
+          </div>
+          <p class="section-subtitle">
+            The goal is not flashy prototypes. The goal is stable, low-drama automations that keep running quietly in
+            the background and are easy to understand.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">01</div>
+            <div class="step-title">Discovery &amp; quick audit</div>
+            <div class="step-body">
+              We walk through how you currently handle invoices, receipts, and data. I map where information starts,
+              where it needs to end up, and where mistakes tend to happen.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <div class="step-title">Concrete proposal</div>
+            <div class="step-body">
+              You get a short, plain-English plan: systems involved, what will be automated, what stays manual, and
+              a fixed or not-to-exceed price.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <div class="step-title">Build &amp; iterate with real data</div>
+            <div class="step-body">
+              I wire things up in a safe test environment, using real but controlled data so we can see how the
+              automation behaves before it touches production.
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">04</div>
+            <div class="step-title">Launch &amp; steady-state support</div>
+            <div class="step-body">
+              We go live, add guardrails, and set up light monitoring. You get documentation, access to the code, and
+              an option for ongoing support as needed.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Case studies -->
+      <section class="section" id="case-studies">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Example work</div>
+            <h2 class="section-title">Real problems this kind of automation can solve</h2>
+          </div>
+          <p class="section-subtitle">
+            Names and details are simplified here, but these are representative of the kind of integrations and
+            automations I design and maintain.
+          </p>
+        </div>
+
+        <div class="case-grid">
+          <div class="case">
+            <div class="case-kicker">Case study A</div>
+            <div class="case-title">Contractor receipt inbox → ERP pipeline</div>
+            <div class="case-meta">Contractor · AP &amp; expense tracking</div>
+            <ul class="case-list">
+              <li>Set up a dedicated inbox for receipts from the field and vendor invoices.</li>
+              <li>Parsed attachments and emails into structured rows in a central sheet.</li>
+              <li>Flagged incomplete or ambiguous records for quick review.</li>
+              <li>Prepared clean output ready to be imported or pushed into the ERP.</li>
+            </ul>
+          </div>
+
+          <div class="case">
+            <div class="case-kicker">Case study B</div>
+            <div class="case-title">Meter &amp; production data into Quickbase</div>
+            <div class="case-meta">Solar / energy · Operational data ingestion</div>
+            <ul class="case-list">
+              <li>Designed a pipeline bringing meter readings into Quickbase on a schedule.</li>
+              <li>Handled idempotent upserts so repeated files didn’t duplicate data.</li>
+              <li>Mapped data to sites and meters for more accurate performance views.</li>
+              <li>Created a foundation to drive reporting and future billing logic.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="section" id="pricing">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Pricing</div>
+            <h2 class="section-title">Clear starting points, then scoped to reality</h2>
+          </div>
+          <p class="section-subtitle">
+            Every business is different, but these ranges should give you a sense of what working together can look
+            like. We’ll always agree on scope and expectations first.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-name">AP starter automation</div>
+            </div>
+            <div class="pricing-price">
+              $750–$1,500<span>one-time</span>
+            </div>
+            <div class="pricing-note">
+              For a focused, well-defined workflow (like a single invoice or receipt pipeline) with light customization.
+            </div>
+            <ul class="pricing-list">
+              <li>Discovery &amp; design for one primary workflow</li>
+              <li>Implementation in your environment or mine</li>
+              <li>Basic error handling and logging</li>
+              <li>Short handbook so your team knows how it works</li>
+            </ul>
+            <div class="pricing-cta">
+              Good for a “first automation” to prove the value.
+            </div>
+          </div>
+
+          <div class="pricing-card featured">
+            <div class="pricing-card-header">
+              <div class="pricing-name">Growth automation package</div>
+              <div class="pricing-tag">Most common</div>
+            </div>
+            <div class="pricing-price">
+              $2,000–$4,500<span>project</span>
+            </div>
+            <div class="pricing-note">
+              For multiple workflows, deeper ERP integrations, or situations where we’re replacing a significant chunk
+              of manual data entry.
+            </div>
+            <ul class="pricing-list">
+              <li>Multiple connected workflows or systems</li>
+              <li>Integration with your ERP or key tools</li>
+              <li>More robust validation and business rules</li>
+              <li>Optional ongoing support or small retainer</li>
+            </ul>
+            <div class="pricing-cta">
+              We scope it together and agree on a clear not-to-exceed.
+            </div>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-card-header">
+              <div class="pricing-name">Ongoing support &amp; changes</div>
+            </div>
+            <div class="pricing-price">
+              Flexible<span>monthly / hourly</span>
+            </div>
+            <div class="pricing-note">
+              For teams that want a steady contact for tweaks, monitoring, and new automations as the business evolves.
+            </div>
+            <ul class="pricing-list">
+              <li>Light retainer for updates and small requests</li>
+              <li>Optional monitoring or check-ins</li>
+              <li>Help scoping new automations as needs grow</li>
+            </ul>
+            <div class="pricing-cta">
+              We’ll design this around your volume and budget.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About & Contact -->
+      <section class="section" id="contact">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">About &amp; contact</div>
+            <h2 class="section-title">Work directly with an integration-minded engineer</h2>
+          </div>
+          <p class="section-subtitle">
+            On The Rock Solutions is intentionally small. You don’t get passed to a junior team. You work directly with
+            the person doing the architecture and implementation.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-title">Who you’d be working with</div>
+            <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.4rem;">
+              I’m Brian Tran, a software developer and integration specialist with experience building:
+            </p>
+            <ul class="about-list">
+              <li>ERP integrations and middleware for finance and operations teams</li>
+              <li>AP automation and workflow solutions for invoice and receipt processing</li>
+              <li>Quickbase and custom app integrations for field and solar operations</li>
+              <li>Practical tools that respect the constraints of small and mid-sized teams</li>
+            </ul>
+            <p style="font-size:0.83rem; color:var(--muted); margin-top:0.7rem;">
+              My bias is toward stable, understandable systems. If we work together, you’ll have visibility into how
+              the automation works and the confidence to rely on it.
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-title">Next step: a short discovery call</div>
+            <p class="contact-text">
+              If you’re curious but not sure where to start, send a short note describing how you currently handle
+              invoices, receipts, or system-to-system data. I’ll reply with a few options and whether I’m a good fit to
+              help.
+            </p>
+            <div class="contact-row">
+              <div>
+                Email:
+                <a href="mailto:brian@ontherocksolutions.com">brian@ontherocksolutions.com</a>
+              </div>
+              <div>
+                Website:
+                <a href="https://ontherocksolutions.github.io/" target="_blank" rel="noopener noreferrer">
+                  ontherocksolutions.github.io
+                </a>
+              </div>
+              <div>
+                Optional:
+                <a href="mailto:brian@ontherocksolutions.com?subject=Discovery%20Call%20Request&body=Hi%20Brian,%0D%0A%0D%0AWe're%20interested%20in%20AP%20automation/ERP%20integrations.%20Here%27s%20how%20we%20currently%20handle%20things:%0D%0A%0D%0A-%20What%20we%27re%20using%20now:%0D%0A-%20Rough%20volume%20of%20invoices/receipts%20per%20month:%0D%0A-%20Main%20pain%20points:%0D%0A%0D%0AThanks!">
+                  Use this email template
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>© <span id="year"></span> On The Rock Solutions. All rights reserved.</div>
+        <div class="footer-links">
+          <span>Based in Pennsylvania · Serving clients remotely.</span>
+        </div>
       </div>
-    </section>
+    </footer>
+  </div>
 
-    <section class="container section">
-      <h2>Pricing</h2>
-      <p class="muted">Simple monthly plans with optional one-time setup for custom categories or ERP sync.</p>
-      <div class="grid pricing">
-        <div class="price-card"><h3>Starter</h3><div class="price">$50<span class="muted">/mo</span></div><p class="muted">Best for solo operators</p><ul><li>Receipts → Google Sheet automation</li><li>Up to 2 intake sources (email/folder)</li><li>Light support via email</li></ul></div>
-        <div class="price-card"><h3>Pro</h3><div class="price">$75<span class="muted">/mo</span></div><p class="muted">For growing teams</p><ul><li>Categories & project tracking</li><li>Multiple intake sources & users</li><li>Priority troubleshooting</li></ul></div>
-        <div class="price-card"><h3>Enterprise</h3><div class="price">$95<span class="muted">/mo</span></div><p class="muted">After one-time setup ($150–$300)</p><ul><li>Advanced schema design & automation</li><li>Custom integrations or ERP sync</li><li>Dedicated support & optimization</li><li><em>Ideal for businesses managing multiple projects or departments.</em></li></ul></div>
-      </div>
-      <blockquote style="margin:40px auto;max-width:680px;background:#0b1229;border-left:4px solid var(--brand);padding:20px;border-radius:12px;color:var(--muted);font-style:italic">
-        “This setup saved me hours each week keeping track of receipts — now everything’s in one place.”<br><strong style="color:var(--text);font-style:normal">— Gabe, Kingsmen Contracting</strong>
-      </blockquote>
-      <div class="cta-bar container"><strong>Have 5 sample receipts? We’ll show you your live Sheet this week.</strong><a class="cta" href="mailto:ontherocksolutions@gmail.com?subject=Receipt%20Automation%20Walkthrough&body=Hi%20Brian%2C%20I%E2%80%99d%20like%20a%20walkthrough.%20Here%20are%20my%20details%3A%0A-%20Business%20name%3A%0A-%20City%3A%0A-%20What%20I%20buy%20most%3A%0A-%20Categories%20I%20track%3A%0A">Email us to start</a></div>
-    </section>
-
-    <section class="container section faq">
-      <h2>FAQ</h2>
-      <details><summary>What exactly do you automate?</summary><p>We route emailed or scanned receipts into a structured Google Sheet (or ERP-style list). We extract date, vendor, and total, and keep a link back to the original file.</p></details>
-      <details><summary>Do I need QuickBooks?</summary><p>No. Many clients just want organized numbers. If you already use an ERP or Quickbase-style list, we can optionally sync rows into it.</p></details>
-      <details><summary>Who owns the data?</summary><p>You do. Everything lives in your Google account or system. We use least-privilege access and you can revoke it anytime.</p></details>
-      <details><summary>How fast is onboarding?</summary><p>Most basic setups take under a day once we have your categories and sample receipts.</p></details>
-    </section>
-
-    <section class="container section">
-      <h2>Contact</h2>
-      <p class="muted">Have questions or want a quick demo? Send an email and we’ll respond promptly.</p>
-      <div class="row" style="margin:10px 0 0"><span class="chip">📍 Columbia, PA — Lancaster County (local & remote)</span><span class="chip">🕘 Mon–Fri</span><span class="chip">📧 <a class="email-link" href="mailto:ontherocksolutions@gmail.com">ontherocksolutions@gmail.com</a></span></div>
-    </section>
-  </main>
-  <footer>
-    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span>© <span id="year"></span> On The Rock Solutions</span><span style="font-size:13px;color:var(--muted)">Built for simplicity. No long-term contracts.</span></div>
-  </footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script>
+    // Simple year updater, safe for GitHub Pages
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
