@@ -335,6 +335,87 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+    
+        /* ===== Diagrams for ERPNext / middleware ===== */
+    .diagrams-wrapper {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .diagram-heading {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .diagram-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.4rem 0.1rem 0.3rem;
+      scrollbar-width: thin;
+    }
+
+    .diagram-column {
+      min-width: 140px;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .diagram-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .diagram-box {
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.45);
+      padding: 0.5rem 0.55rem;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .diagram-box span {
+      display: block;
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .diagram-arrow {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent);
+      padding: 0 0.1rem;
+    }
+
+    .diagram-note {
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .diagram-note strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -371,7 +452,7 @@
     margin-bottom:1.25rem;
   ">
     <h3 style="font-size:1rem; margin-bottom:0.5rem;">Invoice Automation Pipeline</h3>
-    <img src="DIAGRAM_URL_1" 
+    <img src="img/inv_auto.png" 
          alt="Invoice automation pipeline diagram"
          style="width:100%; border-radius:10px;" />
     <p style="font-size:0.85rem; color:#9ca3af; margin-top:0.5rem;">
@@ -380,21 +461,102 @@
   </div>
 
   <!-- Integration Architecture Diagram -->
-  <div style="
-    background:#020617;
-    border:1px solid rgba(148,163,184,0.45);
-    border-radius:12px;
-    padding:1rem;
-    margin-bottom:1.25rem;
-  ">
-    <h3 style="font-size:1rem; margin-bottom:0.5rem;">ERP Integration Architecture</h3>
-    <img src="DIAGRAM_URL_2" 
-         alt="ERP integration flow diagram"
-         style="width:100%; border-radius:10px;" />
-    <p style="font-size:0.85rem; color:#9ca3af; margin-top:0.5rem;">
-      System → middleware → business rules → synced data in ERP/Quickbase.
-    </p>
-  </div>
+         <div>
+          <!-- ERPNext / middleware diagram -->
+          <div class="diagrams-wrapper">
+            <h2 class="diagram-heading">ERPNext invoice integration</h2>
+
+            <div class="diagram-flow">
+              <!-- Column 1: Sources -->
+              <div class="diagram-column">
+                <div class="diagram-label">Sources</div>
+                <div class="diagram-box">
+                  Email inbox
+                  <span>PDF / image attachments</span>
+                </div>
+                <div class="diagram-box">
+                  Upload / scanner
+                  <span>Batch scans</span>
+                </div>
+                <div class="diagram-box">
+                  API Calls / SFTP exports
+                  <span>JSON, XML, CSV </span>
+                </div>
+              </div>
+
+              <div class="diagram-arrow">→</div>
+
+              <!-- Column 2: Invoice Workflow -->
+              <div class="diagram-column">
+                <div class="diagram-label">Invoice workflow</div>
+                <div class="diagram-box">
+                  Invoice Workflow Engine
+                  <span>
+                    Normalize &amp; validate data<br />
+                    Map vendors, dates, totals, GL
+                  </span>
+                </div>
+                <div class="diagram-box">
+                  Output payload
+                  <span>
+                    JSON / XML / CSV envelope<br />
+                    (one standard schema)
+                  </span>
+                </div>
+              </div>
+
+              <div class="diagram-arrow">→</div>
+
+              <!-- Column 3: Middleware -->
+              <div class="diagram-column">
+                <div class="diagram-label">Middleware</div>
+                <div class="diagram-box">
+                  <code>ErpNextSyncIntegration</code>
+                  <span>
+                    Receives normalized payloads<br />
+                    Applies business rules (company, cost center, tax)
+                  </span>
+                </div>
+                <div class="diagram-box">
+                  API adapter layer
+                  <span>
+                    Maps to ERPNext DocTypes<br />
+                    Handles auth, retries, logging
+                  </span>
+                </div>
+              </div>
+
+              <div class="diagram-arrow">→</div>
+
+              <!-- Column 4: ERPNext -->
+              <div class="diagram-column">
+                <div class="diagram-label">ERPNext</div>
+                <div class="diagram-box">
+                  ERPNext REST API
+                  <span>
+                    /api/resource/Purchase Invoice<br />
+                    /api/resource/Sales Invoice
+                  </span>
+                </div>
+                <div class="diagram-box">
+                  Posted documents
+                  <span>
+                    Purchase / Sales Invoices<br />
+                    Payments / Journal Entries
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="diagram-note">
+              <strong>Flow:</strong> multiple input formats (email, scans, XML, CSV) are normalized by the
+              Invoice Workflow, handed to <code>ErpNextSyncIntegration</code>, then posted into ERPNext via the REST API.
+            </div>
+          </div>
+
+ 
+        </div>
+
 
   <!-- Video Embed Slot -->
   <h3 style="font-size:1rem; margin-bottom:0.5rem; margin-top:1.25rem;">
